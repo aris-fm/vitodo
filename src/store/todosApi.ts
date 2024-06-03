@@ -18,14 +18,14 @@ export const todosApi = createApi({
         return { data: data.sort((a, b) => b.id - a.id) };
       },
     }),
-    createTodo: builder.query<void, string>({
+    createTodo: builder.query({
       queryFn: async (name: string) => {
         const { data, error } = await supabase.from("todos").insert([{ name }]);
         if (error) return { error };
         return { data };
       },
     }),
-    updateTodo: builder.query<void, UpdateTodo>({
+    updateTodo: builder.query({
       queryFn: async (args: UpdateTodo) => {
         const { data, error } = await supabase
           .from("todos")
@@ -35,7 +35,7 @@ export const todosApi = createApi({
         return { data };
       },
     }),
-    deleteTodo: builder.query<void, number>({
+    deleteTodo: builder.query({
       queryFn: async (id: number) => {
         const { data, error } = await supabase
           .from("todos")
